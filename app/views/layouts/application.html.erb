@@ -26,17 +26,28 @@
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
             </li>
             <li class="nav-item">
-              <%= link_to '投稿フォーム', new_post_image_path, class: 'nav-link text-dark' %>
+              <%= link_to '投稿フォーム', new_book_image_path, class: 'nav-link text-dark' %>
             </li>
             <li class="nav-item">
               <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
             </li>
             <% else %>
+            <!--ログインしていない状態のとき-->
             <li class="nav-item">
-              <%= link_to "Sign up", new_user_registration_path, class: 'nav-link text-dark' %>
+              <%= link_to root_path, class: 'nav-link text-dark'  do %>
+              <i class="fa-solid fa-house"></i>Home
+              <% end %>            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-dark'  do %>
+              <i class="fa-solid fa-link"></i>About
+              <% end %>            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: 'nav-link text-dark'  do %>
+              <i class="fa-solid fa-user-plus"></i>Sign up
+              <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to "Log in", new_user_session_path, class: 'nav-link text-dark' %>
+              <%= link_to new_user_session_path, class: 'nav-link text-dark'  do %>
+              <i class="fa-solid fa-right-to-bracket"></i>Log in
+              <% end %>
             </li>
             <% end %>
             </ul>
