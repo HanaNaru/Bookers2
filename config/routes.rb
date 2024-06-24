@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-resources :user, only: [:new, :index, :show, :edit]
-resources :book, only: [:new, :index, :show, :edit]
-devise_for :users
-root to: "homes#top"
-get 'homes/about', to: 'homes#about', as: :about
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: {
+    sessions: 'devise/sessions',
+    registrations: 'devise/registrations'
+  }
+
+  root "homes#top"
+
+  get "/home/about" => "homes#about"
+  resources :users
+  resources :books
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
