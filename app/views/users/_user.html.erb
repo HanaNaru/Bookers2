@@ -2,7 +2,12 @@
   <h2>User info</h2>
   <thead>
     <tr>
-      <%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"%>
+            <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, size: '100x100' %>
+          <% else %>
+            <%= image_tag 'no_image.jpg' %>
+          <% end %>
+
     </tr>
   </thead>
   <tbody>
@@ -16,9 +21,8 @@
     </tr>
     <tr>
       <th colspan="2">
-        <%= link_to edit_user_path(current_user), class:"btn btn-default btn-block" do %>
-        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-      <% end %>
+      	<div class="row">
+	<a href="/users/edit" class="btn btn-light btn-block btn-outline-secondary" role="button"><i class="fa-solid fa-user-gear"></i></a></div>
       </th>
     </tr>
   </tbody>
