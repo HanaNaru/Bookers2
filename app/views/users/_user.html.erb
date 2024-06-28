@@ -2,12 +2,11 @@
   <h2>User info</h2>
   <thead>
     <tr>
-            <% if @user.profile_image.attached? %>
-          <%= image_tag @user.profile_image, size: '100x100' %>
-          <% else %>
-            <%= image_tag 'no_image.jpg' %>
-          <% end %>
-
+      <% if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image, size: '100x100' %>
+      <% else %>
+      <%= image_tag 'no_image.jpg', size: '100*100' %>
+      <% end %>
     </tr>
   </thead>
   <tbody>
