@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
-     before_action :authenticate_user!
-
+  before_action :authenticate_user!
 
   def show
     @user = User.find(params[:id])
@@ -10,10 +9,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    @user = current_user
-    @users = User.all
     @book = Book.new
     @books = Book.all
+    @user = current_user
+    @users = User.all
   end
 
   def edit
@@ -36,8 +35,8 @@ class UsersController < ApplicationController
   end
 
   private
-  def user_params
-    params.require(:user).permit(:name, :profile_image, :introduction)
-  end
 
+  def user_params
+    params.require(:user).permit(:name, :introduction, :profile_image)
+  end
 end

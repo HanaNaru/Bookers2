@@ -23,13 +23,13 @@
                 <ul class="navbar-nav ml-auto">
                   <% if user_signed_in? %>
                     <li class="nav-item">
-                    <%= link_to users_path(params[:id]), class: 'nav-link text-white'  do %>
+                    <%= link_to user_path(current_user.id), class: 'nav-link text-white'  do %>
                       <i class="fa-solid fa-house"></i>Home
                     </li>
                     <% end %>
 
                     <li class="nav-item">
-                    <%= link_to user_path(current_user), class: 'nav-link text-white' do %>
+                    <%= link_to users_path, class: 'nav-link text-white' do %>
                       <i class="fa-solid fa-users"></i>User
                     </li>
                     <% end %>
