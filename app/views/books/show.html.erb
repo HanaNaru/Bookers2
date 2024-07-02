@@ -1,28 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <%= render 'users/user', user: @user %>
-      <h2>New book</h2>
-      <%= render 'books/book', book: @newbook %>
-    </div>
+    <div class="offset-md-1"></div>
     <div class="col-md-8">
       <h1>Book detail</h1>
       <table class="table table-user-show">
         <tr>
-          <% if @user.profile_image.attached? %>
-          <%= image_tag @user.profile_image, size: '100x100' %>
-          <% else %>
-          <%= image_tag 'no_image.jpg', size: '100x100'%>
-          <% end %>
-          </tr>
-          <td><%= link_to @user.name, user_path(@user) %></td>
+          <td>
+            <a>
+              <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, size: '100x100' %>
+              <% else %>
+              <%= image_tag 'no_image.jpg', size: '100x100'%>
+              <% end %>
+              <br>
+              <%= link_to @user.name, user_path(@user) %>
+            </a>
+          </td>
           <td><%= @book.title %></td>
           <td><%= @book.body %></td>
-          <% if @book.user_id == current_user.id %>
+            <% if @book.user_id == current_user.id %>
             <td><%= link_to "Edit", edit_book_path(@book), class:"btn btn-success"%></td>
             <td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に消しますか？"}, class:"btn btn-danger" %></td>
           <% end %>
-        
+         </tr>
       </table>
     </div>
   </div>

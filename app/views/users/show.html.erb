@@ -1,24 +1,16 @@
 <% if flash[:notice] %>
-	<div class="flash">
-  <%= flash[:notice] %>
-  </div>
+  <p id="notice"><%= flash[:notice] %></p>
 <% end %>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'users/user', user: @user %>
-      <h2>New book</h2>
-      <%= render 'books/book', book: @book %>
-    </div>
-    <div class="offset-md-1"></div>
-      <div class="col-md-8">
+<div class ="container">
+  <div class ="row">
+    <%= render 'books/list', book: @book, user: @user %>
+    <div class="col-md-8 offset-md-1">
         <h1>User info</h1>
         <table class="table table-user-show">
-                      <thead>
-              <th>image</th>
-              <th>name</th>
+              <thead>
               <th></th>
+              <th>Title</th>
+              <th>Opinion</th>
             </thead>
           <tbody>
             <% @books.each do |book| %>
