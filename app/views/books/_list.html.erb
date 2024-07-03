@@ -1,12 +1,10 @@
-
+<div class ="container">
+  <div class ="row">
       <div class="col-md-3">
         <h2>User Info</h2>
-              <% if @user.profile_image.attached? %>
-              <%= image_tag @user.profile_image, size: '100x100' %>
-              <% else %>
-              <%= image_tag 'no_image.jpg', size: '100*100' %>
-              <% end %>
-        <table class="table">
+        <tbody>
+<%= image_tag user.get_profile_image(100,100) %>
+<table class="table">
           <tbody>
             <tr></tr>
             <tr>
@@ -21,7 +19,7 @@
         </table>
         <div class="row">
 	      <a href="/users/edit" class="btn btn-light btn-block btn-outline-secondary" role="button"><i class="fa-solid fa-user-gear"></i></a></div>
-      
+
         <h2>New book</h2>
         <%= form_with model: book, local:true do |f| %>
 
