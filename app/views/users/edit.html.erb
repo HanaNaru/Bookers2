@@ -1,13 +1,25 @@
-<h1>User info</h1>
-<%= form_for(@user) do |f| %>
-<%= render 'books/error', model: @user %>
-  <div class="user-name">Name</div>
-    <%= f.text_field :name %>
-  <div class="user-edit-image">Image</div>
-    <%= f.attachment_field :profile_image %>
-  <div class="form-body">Introduction</div>
-    <%= f.text_area :introduction %><br>
-  <div class="upload">
-    <%= f.submit " Update User" %>
+<p id="notice"></p>
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <h2>User info</h2>
+    <%= form_with model:@user, local:true do |f| %>
+      <%= render 'layouts/errors', obj: @user %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control name" %>
+      </div>
+     <div class="form-group">
+        <%= f.label :image %>
+        <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction, class: "form-control introduction" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

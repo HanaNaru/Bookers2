@@ -1,40 +1,45 @@
 class UsersController < ApplicationController
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_correct_user, only: [:edit, :update]
 
+  def create
+    @user = User.new(user_params)
+     if @user.save
+       flash[:notice] = "You have updated user successfully."
+       redirect_to user_path(@user.id)
+     else
+       render :users
+     end
+  end
 
   def show
     @user = User.find(params[:id])
+    @books = @user.books
     @book = Book.new
-    @books = Book.where(user_id: @user.id)
-    @profile_image = @user.profile_image
   end
 
   def index
+    @users = User.all
     @user = current_user
     @book = Book.new
-    @books = Book.all
-    @users = User.all
-
   end
 
   def edit
-    is_matching_login_user
     @user = User.find(params[:id])
-    if @user == current_user
-        render "edit"
-    else
-      redirect_to user_path(current_user)
-    end
   end
 
   def update
-    is_matching_login_user
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice]="You have updated user successfully."
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: "You have updated user successfully."
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path
   end
 
   private
@@ -43,10 +48,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
 
- def is_matching_login_user
+  def ensure_correct_user
     @user = User.find(params[:id])
-   unless user.id == current_user.id
-    redirect_to user_path(current_user.id)
-   end
- end
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
+  end
 end
