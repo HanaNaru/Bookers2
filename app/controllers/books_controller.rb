@@ -1,57 +1,45 @@
 class BooksController < ApplicationController
+ before_action :configure_permitted_parameters, if: :devise_controller?
+ before_action :is_matching_login_user, only: [:edit, :update]
 
   def show
-    @newbook = Book.new
     @book = Book.find(params[:id])
-    @user = @book.user
+    @book_new = Book.new
   end
 
   def index
-    @book = Book.new
     @books = Book.all
-    @user = current_user
+    @book = Book.new
   end
 
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
-      flash[:notice]="You have creatad book successfully."
-      redirect_to book_path(@book)
+      redirect_to book_path(@book), notice: "You have created book successfully."
     else
-      @user = current_user
       @books = Book.all
-      render :index
+      render 'index'
     end
   end
 
   def edit
     @book = Book.find(params[:id])
-    if @book.user == current_user
-        render "edit"
-    else
-        redirect_to books_path
-    end
   end
 
   def update
-     is_matching_login_user
     @book = Book.find(params[:id])
-    @book.user_id = current_user.id
     if @book.update(book_params)
-      flash[:notice]="Book was successfully updated."
-      redirect_to book_path(@book.id)
+      redirect_to book_path(@book), notice: "You have updated book successfully."
     else
-      render :edit
+      render "edit"
     end
   end
 
   def destroy
-    @book = Book.find(params[:id])
-    if @book.destroy
-      flash[:notice]="Book was successfully destroyed."
-      redirect_to books_path
-    end
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
 
   private
@@ -60,9 +48,11 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
 
-    def is_matching_login_user
-  book = Book.find(params[:id])
-  redirect_to books_path unless book.user_id == current_user.id
+  def is_matching_login_user
+    book = Book.find(params[:id])
+    unless book.user_id == current_user.id
+      redirect_to books_path
     end
-  
+  end
+
 end
